@@ -20,6 +20,21 @@ namespace Tracker
         List<Venue> allVenues = Venue.GetAll();
         return View["venues.cshtml", allVenues];
       };
+
+      Post["/venue-added"] =_=> {
+        string name = Request.Form["name"];
+        string city = Request.Form["city"];
+        Venue newVenue = new Venue(name, city);
+        newVenue.Save();
+        return View["venue-added.cshtml", name];
+      };
+
+      Post["/band-added"] =_=> {
+        string name = Request.Form["name"];
+        Band newBand = new Band(name);
+        newBand.Save();
+        return View["band-added.cshtml", name];
+      };
     }
   }
 }
