@@ -98,14 +98,14 @@ namespace Tracker
 
       Post["/band-updated/{id}"] = parameters => {
         string newName = Request.Form["name"];
-        Band.Update(name, id);
+        Band.Update(newName, parameters.id);
         return View["band-updated.cshtml", newName];
       };
 
       Post["/venue-updated/{id}"] = parameters => {
         string newName = Request.Form["name"];
         string newCity = Request.Form["city"];
-        Venue.Update(name, city, id);
+        Venue.Update(newName, newCity, parameters.id);
         return View["venue-updated.cshtml", newName];
       };
     }
