@@ -8,7 +8,25 @@
   </head>
   <body>
     <div class="container">
+      <div class="jumbotron">
+        <h1>Venues:</h1>
+        <h3>Click a venue to see a list of bands that have played there:</h3>
+      </div>
+      <div class="well">
+        @foreach(var venue in Model)
+      {
+        <div class="venues">
+          <h3><a href="/venue/@venue.GetId()">Name: @venue.GetName()</a></h3>
+          <ul>
+            <li>Hours: @venue.GetCity()</li>
+          </ul>
+        </div>
+        <br>
+      }
 
+      <h4><a href="/add-venue">Add a new Venue</a></h4><br>
+      <h4><a href="/">Home</a></h4>
+      </div>
     </div>
   </body>
 </html>

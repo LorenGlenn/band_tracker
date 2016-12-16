@@ -4,11 +4,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="/Content/css/styles.css">
     <meta charset="utf-8">
-    <title>Venues</title>
+    <title>Bands</title>
   </head>
   <body>
     <div class="container">
-
+      <div class="jumbotron">
+        <h1>Bands:</h1>
+        <h3>Click a band to see the venues they've played!</h3>
+      </div>
+      <div class="well">
+        @foreach(var band in Model)
+      {
+        <div class="bands">
+          <h3><a href="/band/@band.GetId()">Name: @band.GetName()</a></h3>
+          <br>
+        </div>
+      }
+      <h4><a href="/add-band">Add a new Band</a></h4><br>
+      <h4><a href="/">Home</a></h4>
+      </div>
     </div>
   </body>
 </html>
