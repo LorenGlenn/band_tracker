@@ -56,7 +56,7 @@ namespace Tracker
         allBands = Band.GetAll();
         return View["bands.cshtml", allBands];
       };
-      
+
       Post["/venue/associate-band"] = _ =>
       {
         Venue venue = Venue.Find(Request.Form["venue-id"]);
@@ -80,6 +80,20 @@ namespace Tracker
         Band newBand = new Band(name);
         newBand.Save();
         return View["band-added.cshtml", name];
+      };
+
+      Post["/band-deleted/{id}"] = parameters => {
+        Band toDelete = Band.Find(parameters.id);
+        string name = toDelete.GetName();
+        Band.RemoveABand(parameters.id);
+        return View["band-deleted.cshtml", name];
+      };
+
+      Post["/venue-deleted/{id}"] = parameters => {
+        Venue toDelete = Venue.Find(parameters.id);
+        string name = toDelete.GetName();
+        Venue.RemoveAVenue(parameters.id);
+        return View["venue-deleted.cshtml", name];
       };
     }
   }
