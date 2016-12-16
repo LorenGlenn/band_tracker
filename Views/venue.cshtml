@@ -8,7 +8,33 @@
   </head>
   <body>
     <div class="container">
-
+      <div class="jumbotron">
+        <h1>@Model["venue"].GetName()</h1>
+      </div>
+      <div class="well">
+        <h3>Here are the bands associated with this venue:</h3>
+        @if (@Model["bands"].Count != 0)
+        {
+          <ul>
+            @foreach (var band in @Model["bands"])
+            {
+              <li>@band.GetName()</li>
+            }
+          </ul>
+        }
+        <form action="/venue/associate-band" method="post">
+          <input name='venue-id' type='hidden' value='@Model["venue"].GetId()'>
+          <label for='band-id'>Select a band</label>
+          <select name='band-id' type='text'>
+            @foreach (var band in @Model["allBands"])
+            {
+              <option value='@band.GetId()'>@band.GetName()</option>
+            }
+          </select>
+          <button type='submit'>Add</button>
+        </form>
+        <h4><a href="/">Home</a></h4>
+      </div>
     </div>
   </body>
 </html>
