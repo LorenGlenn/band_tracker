@@ -205,7 +205,28 @@ namespace Tracker
       {
         conn.Close();
       }
+    }
 
+    public static void RemoveABand(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM bands WHERE id = @BandId; DELETE FROM bands_venues WHERE band_id = @BandId;", conn);
+      SqlParameter bandIdParameter = new SqlParameter();
+      bandIdParameter.ParameterName = "@BandId";
+      bandIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(bandIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
     }
 
     public static void DeleteAll()

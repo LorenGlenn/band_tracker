@@ -221,7 +221,28 @@ namespace Tracker
       {
         conn.Close();
       }
+    }
 
+    public static void RemoveAVenue(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM venues WHERE id = @VenueId; DELETE FROM bands_venues WHERE venue_id = @VenueId;", conn);
+      SqlParameter venueIdParameter = new SqlParameter();
+      venueIdParameter.ParameterName = "@VenueId";
+      venueIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(venueIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
     }
 
     public static void DeleteAll()
