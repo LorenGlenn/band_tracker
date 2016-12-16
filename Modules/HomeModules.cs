@@ -95,6 +95,19 @@ namespace Tracker
         Venue.RemoveAVenue(parameters.id);
         return View["venue-deleted.cshtml", name];
       };
+
+      Post["/band-updated/{id}"] = parameters => {
+        string newName = Request.Form["name"];
+        Band.Update(name, id);
+        return View["band-updated.cshtml", newName];
+      };
+
+      Post["/venue-updated/{id}"] = parameters => {
+        string newName = Request.Form["name"];
+        string newCity = Request.Form["city"];
+        Venue.Update(name, city, id);
+        return View["venue-updated.cshtml", newName];
+      };
     }
   }
 }

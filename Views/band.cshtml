@@ -32,11 +32,21 @@
             }
           </select>
           <button type='submit'>Add</button>
-        </form>
+        </form><br>
         <form action='/band-deleted/@Model["band"].GetId()' method="post">
           <button type="submit" name="button">Delete this band</button>
+        </form><br>
+      </div>
+      <div class="well">
+        <form action='/band-updated/@Model["band"].GetId()' method="post">
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" placeholder='@Model["band"].GetName()' required>
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
         </form>
-        <h4><a href="/">Home</a></h4>
+        <h3><a href="/">Go Home</a></h3>
+      </div>
       </div>
     </div>
   </body>
