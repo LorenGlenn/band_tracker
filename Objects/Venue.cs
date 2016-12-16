@@ -161,6 +161,34 @@ namespace Tracker
      }
    }
 
+   public List<Band> GetBands()
+  {
+    SqlConnection conn = DB.Connection();
+    conn.Open();
+
+    SqlCommand cmd = new SqlCommand("SELECT bands.* FROM bands JOIN bands_venues ON (bands_venues.band_id = bands.id) JOIN venues ON (venues.id = bands_venues.venue_id) WHERE venue_id = @VenueId;", conn);
+    SqlParameter venueIdParameter = new SqlParameter();
+    venueIdParameter.ParameterName = "@VenueId";
+    venueIdParameter.Value = this.GetId();
+    cmd.Parameters.Add(venueIdParameter);
+    SqlDataReader rdr = cmd.ExecuteReader();
+
+    List<Band> allBands = new List<Band> {};
+    while(rdr.Read())
+    {
+      int bandId = rdr.GetInt32(0);
+      string bandName = rdr.GetString(1);
+      Band newBand = new Band(bandName, bandId);
+      allBands.Add(newBand);
+    }
+    if (rdr != null)
+    {
+      rdr.Close();
+    }
+
+    return allBands;
+  }
+
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();
