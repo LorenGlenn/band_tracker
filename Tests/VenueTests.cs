@@ -44,6 +44,29 @@ namespace Tracker
       Assert.Equal(testBands, allBands);
     }
 
+    [Fact]
+    public void Test_CheckUpdateVenueInfo_True()
+    {
+      Venue testVenue = new Venue("Venue", "Portland");
+      testVenue.Save();
+      int id = testVenue.GetId();
+      Venue.Update("Venue", "Seattle", id);
+      Venue updated = Venue.Find(id);
+      Assert.Equal(updated.GetCity(), "Seattle");
+    }
+
+    [Fact]
+    public void Test_CheckDeleteVenue_False()
+    {
+      Venue testVenue = new Venue("Venue", "Portland");
+      testVenue.Save();
+      List<Venue> result = Venue.GetAll();
+      Venue.RemoveAVenue(testVenue.GetId());
+      List<Venue> deleted = Venue.GetAll();
+      bool isEqual = (result == deleted);
+      Assert.Equal(false, isEqual);
+    }
+
     public void Dispose()
     {
       Venue.DeleteAll();

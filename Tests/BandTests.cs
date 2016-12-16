@@ -44,6 +44,29 @@ namespace Tracker
       Assert.Equal(testVenues, allVenues);
     }
 
+    [Fact]
+    public void Test_CheckUpdateBandInfo_True()
+    {
+      Band testBand = new Band("Band");
+      testBand.Save();
+      int id = testBand.GetId();
+      Band.Update("New Band", id);
+      Band updated = Band.Find(id);
+      Assert.Equal(updated.GetName(), "New Band");
+    }
+
+    [Fact]
+    public void Test_CheckDeleteBand_False()
+    {
+      Band testBand = new Band("Band");
+      testBand.Save();
+      List<Band> result = Band.GetAll();
+      Band.RemoveABand(testBand.GetId());
+      List<Band> deleted = Band.GetAll();
+      bool isEqual = (result == deleted);
+      Assert.Equal(false, isEqual);
+    }
+
     public void Dispose()
     {
       Band.DeleteAll();
