@@ -167,7 +167,7 @@ namespace Tracker
       int venueId = rdr.GetInt32(0);
       string venueName = rdr.GetString(1);
       string venueCity = rdr.GetString(2);
-      Venue newVenue = new Venue(venueName, venueId);
+      Venue newVenue = new Venue(venueName, venueCity, venueId);
       allVenues.Add(newVenue);
     }
     if (rdr != null)
@@ -177,6 +177,36 @@ namespace Tracker
 
     return allVenues;
   }
+
+  public static void Update(string newName, int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE bands SET name = @BandName WHERE id = @BandId;", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@BandName";
+      nameParameter.Value = newName;
+
+      SqlParameter bandIdParameter = new SqlParameter();
+      bandIdParameter.ParameterName = "@BandId";
+      bandIdParameter.Value = id.ToString();
+
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(bandIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+    }
 
     public static void DeleteAll()
     {

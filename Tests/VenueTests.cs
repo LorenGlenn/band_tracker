@@ -25,6 +25,25 @@ namespace Tracker
       Assert.Equal(testList, allVenues);
     }
 
+    [Fact]
+    public void Test_GetBandsAssociatedWithVenue()
+    {
+      List<Band> allBands = new List<Band>{};
+      List<Band> testBands = new List<Band>{};
+
+      Venue newVenue = new Venue("Venue", "Seattle");
+      newVenue.Save();
+
+      Band newBand = new Band("Band");
+      newBand.Save();
+
+      newVenue.AddBand(newBand);
+      allBands = newVenue.GetBands();
+      testBands.Add(newBand);
+
+      Assert.Equal(testBands, allBands);
+    }
+
     public void Dispose()
     {
       Venue.DeleteAll();

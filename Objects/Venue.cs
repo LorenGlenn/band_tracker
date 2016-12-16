@@ -145,12 +145,12 @@ namespace Tracker
 
      SqlParameter bandIdParameter = new SqlParameter();
      bandIdParameter.ParameterName = "@BandId";
-     bandIdParameter.Value = this.GetId();
+     bandIdParameter.Value = newBand.GetId();
      cmd.Parameters.Add(bandIdParameter);
 
      SqlParameter venueIdParameter = new SqlParameter();
      venueIdParameter.ParameterName = "@VenueId";
-     venueIdParameter.Value = newVenue.GetId();
+     venueIdParameter.Value = this.GetId();
      cmd.Parameters.Add(venueIdParameter);
 
      cmd.ExecuteNonQuery();
@@ -188,6 +188,41 @@ namespace Tracker
 
     return allBands;
   }
+
+  public static void Update(string newName, string newCity, int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE venues SET name = @VenueName, city = @VenueCity WHERE id = @VenueId;", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@VenueName";
+      nameParameter.Value = newName;
+
+      SqlParameter cityParameter = new SqlParameter();
+      cityParameter.ParameterName = "@VenueCity";
+      cityParameter.Value = newCity;
+
+      SqlParameter venueIdParameter = new SqlParameter();
+      venueIdParameter.ParameterName = "@VenueId";
+      venueIdParameter.Value = id.ToString();
+
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(cityParameter);
+      cmd.Parameters.Add(venueIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+    }
 
     public static void DeleteAll()
     {
