@@ -37,7 +37,3 @@ namespace Tracker
       {
         return _name;
       }
-      public string GetCity()
-      {
-        return _city;
-      }
