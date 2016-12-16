@@ -32,15 +32,46 @@ namespace Tracker
         return (idEquality && nameEquality && cityEquality);
       }
     }
-      public int GetId()
+    public int GetId()
+    {
+      return _id;
+    }
+    public string GetName()
+    {
+      return _name;
+    }
+    public string GetCity()
+    {
+      return _city;
+    }
+
+
+    public static List<Venue> GetAll()
+    {
+      List<Venue> allVenues = new List<Venue>{};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM venues;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
       {
-        return _id;
+        int venueId = rdr.GetInt32(0);
+        string venueName = rdr.GetString(1);
+        string venueCity = rdr.GetString(2);
+
+        Venue newVenue = new Venue(venueName, venueCity, venueId);
+        allVenues.Add(newVenue);
       }
-      public string GetName()
+      if(rdr != null)
       {
-        return _name;
+        rdr.Close();
       }
-      public string GetCity()
+      if(conn != null)
       {
-        return _city;
+        conn.Close();
       }
+      return allVenues;
+    }
