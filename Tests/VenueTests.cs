@@ -24,5 +24,10 @@ namespace Tracker
 
       Assert.Equal(testList, allVenues);
     }
+
+    public void Dispose()
+    {
+      Venue.DeleteAll();
+    }
   }
 }

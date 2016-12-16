@@ -75,3 +75,12 @@ namespace Tracker
       }
       return allVenues;
     }
+
+    public static void DeleteAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("Delete FROM venues; DELETE FROM bands_venues;", conn);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }

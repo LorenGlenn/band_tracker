@@ -52,9 +52,8 @@ namespace Tracker
       {
         int bandId = rdr.GetInt32(0);
         string bandName = rdr.GetString(1);
-        string bandCity = rdr.GetString(2);
 
-        Band newBand = new Band(bandName, bandCity, bandId);
+        Band newBand = new Band(bandName, bandId);
         allBands.Add(newBand);
       }
       if(rdr != null)
@@ -66,4 +65,13 @@ namespace Tracker
         conn.Close();
       }
       return allBands;
+    }
+
+    public static void DeleteAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("Delete FROM bands; DELETE FROM bands_venues;", conn);
+      cmd.ExecuteNonQuery();
+      conn.Close();
     }
