@@ -25,7 +25,9 @@ namespace Tracker
       Assert.Equal(testList, allBands);
     }
 
-public void Dispose()
-{
-  Band.DeleteAll();
+    public void Dispose()
+    {
+      Band.DeleteAll();
+    }
+  }
 }

@@ -45,6 +45,34 @@ namespace Tracker
       return _city;
     }
 
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO venues (name, city) OUTPUT INSERTED.id VALUES (@VenueName, @VenueCity);", conn);
+
+      SqlParameter nameParameter = new SqlParameter("@VenueName", this.GetName());
+      SqlParameter cityParameter = new SqlParameter("@VenueCity", this.GetCity());
+
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(cityParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
 
     public static List<Venue> GetAll()
     {
@@ -84,3 +112,5 @@ namespace Tracker
       cmd.ExecuteNonQuery();
       conn.Close();
     }
+  }
+}
