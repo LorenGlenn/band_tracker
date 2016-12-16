@@ -1,7 +1,8 @@
 using System.Data;
 using System.Data.SqlClient;
+using Tracker;
 
-namespace Tracker
+namespace Tracker.Objects
 {
   public class DB
   {
