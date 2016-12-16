@@ -34,6 +34,7 @@ namespace Tracker
         model.Add("allVenues", allVenues);
         return View["band.cshtml", model];
       };
+
       Get["/venue/{id}"] = parameters =>
       {
         Dictionary<string, object> model = new Dictionary<string, object>();
@@ -45,6 +46,7 @@ namespace Tracker
         model.Add("allBands", allBands);
         return View["venue.cshtml", model];
       };
+
       Post["/band/associate-venue"] = _ =>
       {
         Band band = Band.Find(Request.Form["band-id"]);
@@ -54,6 +56,7 @@ namespace Tracker
         allBands = Band.GetAll();
         return View["bands.cshtml", allBands];
       };
+      
       Post["/venue/associate-band"] = _ =>
       {
         Venue venue = Venue.Find(Request.Form["venue-id"]);

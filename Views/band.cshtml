@@ -33,6 +33,9 @@
           </select>
           <button type='submit'>Add</button>
         </form>
+        <form action='/band-deleted/@Model["band"].GetId()' method="post">
+          <button type="submit" name="button">Delete this band</button>
+        </form>
         <h4><a href="/">Home</a></h4>
       </div>
     </div>
